@@ -188,7 +188,7 @@ function managerInput() {
             }
 
             if (answers.info == 'Add New Product') {
-                connection.query('SELECT * FROM products', function (err, rows) {
+                connection.query('SELECT * FROM department', function (err, rows) {
                     for (var i = 0; i < rows.length; i++) {
 
                         var idPrice = rows[i].price;
@@ -204,6 +204,7 @@ function managerInput() {
 
                         ];
                     }
+                    console.log(addItem)
                     inquirer.prompt([
 
                         {
@@ -234,6 +235,7 @@ function managerInput() {
                         var price = answers.price;
                         var dept = answers.department;
                         var quan = answers.quantity;
+                        console.log(dept)
 
                         connection.query('INSERT INTO products SET ?',
                             [
