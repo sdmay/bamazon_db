@@ -84,8 +84,8 @@ function userInput() {
             var quit = "quit";
 
             if (rowData === quit) {
-                console.log(rowData)
-
+                // console.log(rowData)
+                // console.log(itemID)
                 connection.end()
             }
 
@@ -94,6 +94,8 @@ function userInput() {
                 userInput();
 
             }
+
+
 
             connection.query('SELECT * FROM products WHERE id= ?', rowData, function (err, rows) {
                 if (err) throw err;
@@ -123,6 +125,7 @@ function userInput() {
                     console.log("");
                     console.log("");
                     console.log("");
+
                 }
                 inquirer.prompt([
                     {
@@ -136,46 +139,51 @@ function userInput() {
                         // }
                     }
                 ]).then(function (answers) {
-                    console.log(answers)
-                    console.log(answers.quantity)
+                    // console.log(answers)
+                    // console.log(answers.quantity)
                     //     console.log(answers.quantity)
                     var infoData = answers.quantity;
                     // console.log(infoData)
+                    switch (infoData) {
+                        case "quit":
+                            connection.end();
+                            break;
+                    }
 
-                    console.log(infoData)
+                    // console.log(infoData)
                     if (infoData > quantityLeft) {
                         console.log("")
                         console.log("")
                         console.log("You must choose less than " + quantityLeft)
                         console.log("")
                         console.log("")
-                        userInput();
+                        // userInput();
                     }
                     else {
-                         console.log(answers.quantity)
-                    //     console.log(answers.quantity)
-                    var infoData = answers.quantity;
+                        // console.log(answers.quantity)
+                        //     console.log(answers.quantity)
+                        var infoData = answers.quantity;
                         var totalSale = infoData * price;
-                        console.log(totalSale)
+                        // console.log(totalSale)
                         var pushTwo = infoData * price;
-                        console.log(pushTwo)
+                        // console.log(pushTwo)
                         priceing.push(pushTwo);
                         console.log(" ");
                         console.log(" ")
                         // console.log(department)
                         poc = parseInt(priceing)
-                        console.log(infoData)
+                        // console.log(infoData)
                         woc = parseInt(winner)
                         var adding = winner + priceing;
-                        var addition = woc  + poc;
+                        var addition = woc + poc;
                         // console.log(addition)
-                        console.log(adding)
-                        console.log(adding)
+                        // console.log(adding)
+                        // console.log(adding)
                         // console.log(woc + poc)
-                        console.log(rowData)
-                        console.log(quantityLeft)
-                        console.log(infoData)
-                        console.log(quantityLeft - infoData)
+                        // console.log(rowData)
+                        // console.log(quantityLeft)
+                        // console.log(infoData)
+                        // console.log(quantityLeft - infoData)
                         console.log("Your price is $", totalSale);
                         console.log("");
                         console.log("");
@@ -187,7 +195,7 @@ function userInput() {
                         {
                             id: rowData
                         }],
-                        
+
 
 
                             function (err, result) {
@@ -196,11 +204,11 @@ function userInput() {
                                 console.log("");
                                 console.log("");
                                 console.log("");
-                                console.log(err);
-                                console.log(result)
+                                // console.log(err);
+                                // console.log(result)
                                 var adding = 0;
-                                
-                      
+
+
                                 updateData()
 
                             });
@@ -229,19 +237,19 @@ function updateData() {
 
         var won = parseInt(winner);
         var pic = parseInt(priceing)
-        console.log(won + pic)
+        // console.log(won + pic)
         var together = won + pic;
-        console.log(together)
+        // console.log(together)
         // var dep = JSON.stringify(dept);
         var cus = parseInt(custID);
         var bus = parseInt(together)
-        console.log(dept)
+        // console.log(dept)
         // console.log(dep);
-        console.log(cus - bus);
-        console.log(bus - cus)
+        // console.log(cus - bus);
+        // console.log(bus - cus)
         // console.log(cus)
-        console.log(bus)
-        
+        // console.log(bus)
+
 
         connection.query('UPDATE department SET ? WHERE ?', [
             {
@@ -254,21 +262,21 @@ function updateData() {
 
         ],
             function (err, response) {
-                console.log(err)
-                console.log(response);
-   console.log(dept)
-priceing.length = 0;
-dept.length = 0;
-custID.length = 0;
-itemID.length = 0;
-winner.length = 0;
-numeroID.length = 0;
-
+                // console.log(err)
+                // console.log(response);
+                // console.log(dept)
+                priceing.length = 0;
+                dept.length = 0;
+                custID.length = 0;
+                itemID.length = 0;
+                winner.length = 0;
+                numeroID.length = 0;
+                rowData = 0;
                 oneMoreTime()
             });
     })
 }
-function oneMoreTime(){
+function oneMoreTime() {
     inquirer.prompt([
         {
             name: "pick",
@@ -277,15 +285,25 @@ function oneMoreTime(){
             choices: ["Continue", "Exit"],
 
         }
-    ]).then(function(answers){
-        if (answers.pick == "Continue"){
-                 userInput()
+    ]).then(function (answers) {
+        if (answers.pick == "Continue") {
+            userInput()
         }
-        else{
+        if (answers.pick == "Exit"){
             connection.end()
         }
+        
     })
-   
+    // switch (answers) {
+    //     case "Continue":
+    //         userInput();
+    //         break;
+    //     case "Exit":
+    //         connection.end();
+    //         break;
+    // }
+
+    // });
 }
 
 userInput();

@@ -204,7 +204,7 @@ function managerInput() {
 
                         ];
                     }
-                    console.log(addItem)
+                    // console.log(addItem)
                     inquirer.prompt([
 
                         {
@@ -235,7 +235,7 @@ function managerInput() {
                         var price = answers.price;
                         var dept = answers.department;
                         var quan = answers.quantity;
-                        console.log(dept)
+                        // console.log(dept)
 
                         connection.query('INSERT INTO products SET ?',
                             [

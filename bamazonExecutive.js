@@ -70,12 +70,13 @@ function execInput() {
 
                 connection.query('INSERT INTO department SET ?', [{
                     department_name: deptName,
-                    over_head_costs: overHead
+                    over_head_cost: overHead
                 }
 
                 ],
                     function (err, results) {
-                        
+                        // console.log(err);
+                        // console.log(results)
                         console.log(" ");
                         console.log(" ");
                         console.log(deptName + " added to the database successfully.");
